@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-gbok",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattiaskind/nodejs-gbok.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattiaskind/nodejs-gbok/issues"
+  },
+  "homepage": "https://github.com/mattiaskind/nodejs-gbok#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
