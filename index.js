@@ -41,17 +41,17 @@ app.get('/posts', async (req, res) => {
   }
 });
 
-app.get('/posts/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    let posts = await getPostsData('data/example-data.json');
-    posts = JSON.parse(posts);
-    const post = posts.find((post) => post.id === Number(id));
-    res.json(post);
-  } catch (error) {
-    res.send(error.message);
-  }
-});
+// app.get('/posts/:id', async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     let posts = await getPostsData('data/example-data.json');
+//     posts = JSON.parse(posts);
+//     const post = posts.find((post) => post.id === Number(id));
+//     res.json(post);
+//   } catch (error) {
+//     res.send(error.message);
+//   }
+// });
 
 app.post('/posts', async (req, res) => {
   console.log('Ikommande begäran');
@@ -59,8 +59,8 @@ app.post('/posts', async (req, res) => {
   console.log(name, email, comment);
 });
 
-app.get('*', (req, res) => {
-  res.send('Sökvägen finns inte');
+app.use((req, res) => {
+  res.status(404).send('Sidan kunde inte hittas');
 });
 
 app.listen(port, () => {
