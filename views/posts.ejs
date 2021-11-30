@@ -1,8 +1,20 @@
+<%- include('partials/header.ejs') %> 
+<main>
+
+  <div class="guestbook-nav">
+    <ul>
+      <li><a href="/posts/new">Skriv ett inlägg</a></li>
+    </ul>
+  </div>
+  
 <ul>
   <% for (post of posts) { %>
-    <li><%= post.author %></li>
-    <li><%= post.email %></li>
-    <li><%= post.comment %></li>
-    <br>
+    <div class="post">
+    <li class="author"><%= post.author %></li>    
+    <li class="comment"><%= post.comment %></li>
+    </div>
   <% } %> 
 </ul>
+
+</main>
+<%- include('partials/footer.ejs') %> 

@@ -1,3 +1,85 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 body {
+  background-color: white;
+  font-size: 1.6rem;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+  width: 100%;
+  background-color: royalblue;
+  padding: 1rem 5rem 1rem 5rem;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+main {
+  padding: 4rem 5rem 1rem 5rem;
+}
+
+nav a {
+  color: rgb(194, 238, 255);
+  text-decoration: none;
+  text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+nav ul {
+  font-size: 2.5rem;
+  display: flex;
+  list-style-type: none;
+}
+
+nav li {
+  margin-left: 1rem;
+  padding: 0.8rem 2rem;
+  background-color: rgb(58, 93, 199);
+  border-radius: 0.5rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.guestbook-nav {
+  max-width: 800px;
+  padding: 2rem 0.5rem;
+  /* background-color: rgb(231, 231, 231); */
+  margin-bottom: 0.2rem;
+  /* border-radius: 0.5rem;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); */
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(245, 245, 245);
+  max-width: 800px;
+  margin-bottom: 1rem;
+  min-height: 100px;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.post:hover {
+  background-color: rgb(233, 233, 233);
+}
+
+.author {
+  font-weight: 700;
+  color: rgb(109, 109, 109);
 }

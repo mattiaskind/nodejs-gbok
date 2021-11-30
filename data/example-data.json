@@ -16,5 +16,11 @@
     "author": "Greta Gunnarsson",
     "email": "greta@great.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam."
+  },
+  {
+    "id": 4,
+    "author": "Lisa Larsson",
+    "email": "greta@great.com",
+    "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam."
   }
 ]

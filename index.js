@@ -24,6 +24,8 @@ const getPostsData = async (path) => {
   }
 };
 
+// Lägg till datum och möjlighet att spara kommentarer på ett inlägg
+
 app.get('/', (req, res) => {
   res.render('home.ejs');
 });
@@ -55,6 +57,10 @@ app.post('/posts', async (req, res) => {
   console.log('Ikommande begäran');
   const { name, email, comment } = req.body;
   console.log(name, email, comment);
+});
+
+app.get('*', (req, res) => {
+  res.send('Sökvägen finns inte');
 });
 
 app.listen(port, () => {
