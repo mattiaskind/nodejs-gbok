@@ -1,53 +1,59 @@
 const fs = require('fs').promises;
 const express = require('express');
-const util = require('util');
+const path = require('path');
 
 const app = express();
 const port = 3000;
 
-// const readFilePromise = (file) => {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(file, 'utf-8', (err, data) => {
-//       if (err) reject('Filen kunde inte hittas');
-//       resolve(data);
-//     });
-//   });
-// };
+// Ställ in varifrån statiska filer hämtas
+app.use(express.static(path.join(__dirname, 'public')));
+// Ställ in att ejs ska användas
+app.set('view engine', 'ejs');
+// Ställ in sökvägen till mappen för där templates finns
+app.set('views', path.join(__dirname, 'views'));
+
+// För formulärdatan
+app.use(express.urlencoded({ extended: true }));
 
 const getPostsData = async (path) => {
+  if (path === '' || path === undefined) throw 'Du måste ange en sökväg!';
   try {
     return await fs.readFile(path, 'utf-8');
   } catch (error) {
-    throw 'Filen kunde inte hittas!';
+    throw new Error('Filen kunde inte hittas!');
   }
 };
 
-// const writePost = () => {
-//   try {
-//     return fs.writeFile('data/example-data.json');
-//   } catch (error) {}
-// };
-
-app.get('/posts', (req, res) => {
-  console.log('Inkommande begäran');
-  (async () => {
-    try {
-      const posts = await getPostsData('data/example-data.json');
-      res.json(JSON.parse(posts));
-    } catch (error) {
-      res.send(error);
-    }
-  })();
+app.get('/', (req, res) => {
+  res.render('home.ejs');
 });
 
-app.get('/posts/:id', (req, res) => {
+app.get('/posts', async (req, res) => {
+  console.log('Inkommande begäran');
+  try {
+    const posts = await getPostsData('data/example-data.json');
+    res.json(posts);
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+app.get('/posts/:id', async (req, res) => {
   const { id } = req.params;
-  (async () => {
-    let posts = await getPostsData();
+  try {
+    let posts = await getPostsData('data/example-data.json');
     posts = JSON.parse(posts);
     const post = posts.find((post) => post.id === Number(id));
     res.json(post);
-  })();
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+app.post('/posts', async (req, res) => {
+  console.log('Ikommande begäran');
+  const { name, email, comment } = req.body;
+  console.log(name, email, comment);
 });
 
 app.listen(port, () => {
