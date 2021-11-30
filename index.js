@@ -31,8 +31,9 @@ app.get('/', (req, res) => {
 app.get('/posts', async (req, res) => {
   console.log('Inkommande begäran');
   try {
-    const posts = await getPostsData('data/example-data.json');
-    res.json(posts);
+    let posts = await getPostsData('data/example-data.json');
+    posts = JSON.parse(posts);
+    res.render('posts.ejs', { posts });
   } catch (error) {
     res.send(error.message);
   }

@@ -1,19 +1,19 @@
 [
   {
     "id": 1,
-    "name": "Sven Svensson",
+    "author": "Sven Svensson",
     "email": "sven@sven.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam."
   },
   {
     "id": 2,
-    "name": "Arne Andersson",
+    "author": "Arne Andersson",
     "email": "arne@a.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam."
   },
   {
     "id": 3,
-    "name": "Greta Gunnarsson",
+    "author": "Greta Gunnarsson",
     "email": "greta@great.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam."
   }
