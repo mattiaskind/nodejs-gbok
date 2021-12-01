@@ -1,14 +1,6 @@
 <%- include('partials/header.ejs') %> 
 <main>
-
-  <%- include('new_post.ejs') %>
-
-  <!-- <div class="guestbook-nav">
-    <ul>
-      <li><a href="/posts/new">Skriv ett inlägg</a></li>
-    </ul>
-  </div> -->
-  
+  <%- include('new_post.ejs') %>  
 <ul>
   <% for (post of posts) { %>
     <div class="post">
@@ -29,6 +21,6 @@
     </div>
   <% } %> 
 </ul>
-
 </main>
+<script src="/js/script.js"></script>
 <%- include('partials/footer.ejs') %> 

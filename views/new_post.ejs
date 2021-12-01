@@ -2,15 +2,15 @@
   <form action="/posts/" method="post">
     <div>      
       <label for="author">Namn</label>
-      <input type="text" name="author" id="author">
+      <input type="text" name="author" id="author" class="required">
     </div>
     <div>      
       <label for="author">E-post</label>
-      <input type="text" name="email" id="email">
+      <input type="text" name="email" id="email" class="required">
     </div>
     <div>
       <label for="comment">Lämna en kommentar</label>
-      <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+      <textarea name="comment" id="comment" cols="30" rows="10" class="required"></textarea>
     </div>
     <div class="btn-container"><input type="submit" value="Skicka"></div>    
   </form>

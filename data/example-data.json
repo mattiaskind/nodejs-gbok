@@ -3,35 +3,21 @@
     "author": "Sven Svensson",
     "email": "sven@sven.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 6,
+    "likes": 1,
     "id": 1
   },
   {
     "author": "Arne Andersson",
     "email": "arne@a.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 3,
+    "likes": 2,
     "id": 2
   },
   {
     "author": "Greta Gunnarsson",
     "email": "greta@great.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 5,
+    "likes": 0,
     "id": 3
-  },
-  {
-    "author": "Lisa Larsson",
-    "email": "greta@great.com",
-    "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 2,
-    "id": 4
-  },
-  {
-    "author": "Namn",
-    "email": "mail@mail.com",
-    "comment": "Hej det här är en kommentar\r\n",
-    "likes": 9,
-    "id": 71433
   }
 ]
