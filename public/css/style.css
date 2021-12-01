@@ -31,9 +31,13 @@ main {
 }
 
 nav a {
-  color: rgb(194, 238, 255);
+  color: white;
   text-decoration: none;
   text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+nav a:hover {
+  color: rgb(182, 200, 255);
 }
 
 nav ul {
@@ -51,6 +55,10 @@ nav li {
 
 ul {
   list-style-type: none;
+}
+
+label {
+  display: block;
 }
 
 .guestbook-nav {
@@ -76,10 +84,38 @@ ul {
 }
 
 .post:hover {
-  background-color: rgb(233, 233, 233);
+  background-color: rgb(240, 240, 240);
 }
 
 .author {
   font-weight: 700;
   color: rgb(109, 109, 109);
+  margin-bottom: 0.2rem;
+}
+
+.comment {
+  margin-block: 0.5rem;
+}
+
+.likes {
+  margin: 1rem;
+}
+
+.likes-badge {
+  background-color: rgb(139, 212, 172);
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+#like-form {
+  display: inline;
+}
+
+#like-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  background-color: rgb(216, 216, 216);
+  border: 0;
+  cursor: pointer;
 }

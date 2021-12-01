@@ -1,0 +1,19 @@
+<%- include('partials/header.ejs') %> 
+<main>
+  <form action="/posts/" method="post">
+    <div>      
+      <label for="author">Namn</label>
+      <input type="text" name="author" id="author">
+    </div>
+    <div>      
+      <label for="author">E-post</label>
+      <input type="text" name="email" id="email">
+    </div>
+    <div>
+      <label for="comment">Lämna en kommentar</label>
+      <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+    </div>
+    <input type="submit" value="Skicka">
+  </form>
+</main>
+<%- include('partials/footer.ejs') %> 

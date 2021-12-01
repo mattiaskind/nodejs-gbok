@@ -11,33 +11,74 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 // Ställ in sökvägen till mappen för där templates finns
 app.set('views', path.join(__dirname, 'views'));
-
 // För formulärdatan
 app.use(express.urlencoded({ extended: true }));
 
-const getPostsData = async (path) => {
-  if (path === '' || path === undefined) throw 'Du måste ange en sökväg!';
+// Funktion som läser läser in fil
+const getPostsData = async () => {
   try {
-    return await fs.readFile(path, 'utf-8');
+    data = await fs.readFile('data/example-data.json', 'utf-8');
+    return data;
   } catch (error) {
     throw new Error('Filen kunde inte hittas!');
   }
 };
 
-// Lägg till datum och möjlighet att spara kommentarer på ett inlägg
+// Funktion som skriver till filen
+const writePostData = async (data) => {
+  try {
+    console.log(typeof data);
+    await fs.writeFile('data/example-data.json', JSON.stringify(data, null, 2));
+  } catch (error) {
+    throw new Error('Något gick fel när data skulle skrivas till filen.');
+  }
+};
 
 app.get('/', (req, res) => {
   res.render('home.ejs');
 });
 
 app.get('/posts', async (req, res) => {
-  console.log('Inkommande begäran');
   try {
-    let posts = await getPostsData('data/example-data.json');
+    // Hämta datan
+    let posts = await getPostsData();
     posts = JSON.parse(posts);
-    res.render('posts.ejs', { posts });
+    // Sortera, flest gilla-markeringar överst
+    const sortedPosts = posts.sort((a, b) => b.likes - a.likes);
+
+    res.render('posts.ejs', { posts: sortedPosts });
   } catch (error) {
     res.send(error.message);
+  }
+});
+
+app.post('/posts/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    let posts = await getPostsData();
+    posts = JSON.parse(posts);
+    for (let i = 0; i < posts.length; i++) {
+      if (posts[i].id === Number(id)) posts[i].likes += 1;
+    }
+    await writePostData(posts);
+    res.redirect('/posts');
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+app.get('/posts/new', (req, res) => {
+  res.render('posts_new.ejs');
+});
+
+app.get('/posts/:postId', async (req, res) => {
+  const { postId } = req.params;
+  try {
+    let posts = await getPostsData();
+    posts = JSON.parse(posts);
+    res.send(posts[0].replies);
+  } catch (error) {
+    res.send(error);
   }
 });
 
@@ -53,10 +94,17 @@ app.get('/posts', async (req, res) => {
 //   }
 // });
 
-app.post('/posts', async (req, res) => {
-  console.log('Ikommande begäran');
-  const { name, email, comment } = req.body;
-  console.log(name, email, comment);
+// app.post('/posts', async (req, res) => {
+//   const { name, email, comment } = req.body;
+//   console.log(name, email, comment);
+// });
+
+app.post('/posts/', (req, res) => {
+  const { author, email, comment } = req.body;
+  console.log(author);
+  console.log(email);
+  console.log(comment);
+  res.redirect('/posts');
 });
 
 app.use((req, res) => {

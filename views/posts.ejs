@@ -11,7 +11,17 @@
   <% for (post of posts) { %>
     <div class="post">
     <li class="author"><%= post.author %></li>    
-    <li class="comment"><%= post.comment %></li>
+    <li class="comment"><%= post.comment %></li>    
+    <li class="likes">
+      <form action="/posts/<%= post.id %>" method="post" id="like-form">
+        <input type="submit" value="Gilla" id="like-btn">
+      </form>
+    <% if(post.likes > 0) { %> 
+      <span class="likes-badge"><%=post.likes %></span>
+    <% } %>
+    </li>
+    </div>
+    <div class="replies">      
     </div>
   <% } %> 
 </ul>
