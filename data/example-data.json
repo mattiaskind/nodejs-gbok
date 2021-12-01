@@ -1,30 +1,37 @@
 [
   {
-    "id": 1,
     "author": "Sven Svensson",
     "email": "sven@sven.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 3
+    "likes": 6,
+    "id": 1
   },
   {
-    "id": 2,
     "author": "Arne Andersson",
     "email": "arne@a.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 0
+    "likes": 3,
+    "id": 2
   },
   {
-    "id": 3,
     "author": "Greta Gunnarsson",
     "email": "greta@great.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 2
+    "likes": 5,
+    "id": 3
   },
   {
-    "id": 4,
     "author": "Lisa Larsson",
     "email": "greta@great.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 0
+    "likes": 2,
+    "id": 4
+  },
+  {
+    "author": "Namn",
+    "email": "mail@mail.com",
+    "comment": "Hej det här är en kommentar\r\n",
+    "likes": 9,
+    "id": 71433
   }
 ]

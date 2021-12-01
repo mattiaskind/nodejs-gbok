@@ -1,17 +1,21 @@
 <%- include('partials/header.ejs') %> 
 <main>
 
-  <div class="guestbook-nav">
+  <%- include('new_post.ejs') %>
+
+  <!-- <div class="guestbook-nav">
     <ul>
       <li><a href="/posts/new">Skriv ett inlägg</a></li>
     </ul>
-  </div>
+  </div> -->
   
 <ul>
   <% for (post of posts) { %>
     <div class="post">
-    <li class="author"><%= post.author %></li>    
-    <li class="comment"><%= post.comment %></li>    
+    <div class="post-header">
+      <li class="author"><%= post.author %></li>    
+      <li class="comment"><%= post.comment %></li>    
+    </div>
     <li class="likes">
       <form action="/posts/<%= post.id %>" method="post" id="like-form">
         <input type="submit" value="Gilla" id="like-btn">

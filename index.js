@@ -59,8 +59,7 @@ app.get('/', (req, res) => {
 app.get('/posts', async (req, res) => {
   try {
     // Hämta datan
-    let posts = await getPostsData();
-    posts = JSON.parse(posts);
+    const posts = JSON.parse(await getPostsData());
     // Sortera, flest gilla-markeringar överst
     const sortedPosts = posts.sort((a, b) => b.likes - a.likes);
     // Skriv ut alla inlägg
@@ -73,14 +72,16 @@ app.get('/posts', async (req, res) => {
 ///////// Nytt inlägg /////////
 app.post('/posts/', async (req, res) => {
   const { author, email, comment } = req.body;
-  const data = { author, email, comment, likes: 0 };
-  //Generera ett id utifrån tid samt ett slumpmässigt tal
+  const newPost = { author, email, comment, likes: 0 };
+  //Generera någon slags unikt nummer utifrån tid samt ett slumpmässigt tal
   let id = new Date().getTime();
   id += Math.floor(Math.random() * 10 + 1);
-  data.id = id;
-
+  // Spara delar av talet
+  newPost.id = Number(id.toString().slice(-5));
   try {
-    await appendPostData(data);
+    const posts = JSON.parse(await getPostsData());
+    posts.push(newPost);
+    await writePostData(posts);
     res.redirect('/posts');
   } catch (error) {
     res.send(error.message);
@@ -107,12 +108,6 @@ app.post('/posts/:id', async (req, res) => {
   } catch (error) {
     res.send(error.message);
   }
-});
-
-///////// Nytt inlägg /////////
-
-app.get('/posts/new', (req, res) => {
-  res.render('new_post.ejs');
 });
 
 ///////// Om sidan inte hittas /////////
