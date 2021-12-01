@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+const filePath = 'data/example-data.json';
 // Ställ in varifrån statiska filer hämtas
 app.use(express.static(path.join(__dirname, 'public')));
 // Ställ in att ejs ska användas
@@ -14,10 +15,16 @@ app.set('views', path.join(__dirname, 'views'));
 // För formulärdatan
 app.use(express.urlencoded({ extended: true }));
 
+// Visa alla inkommande förfrågningar
+app.use((req, res, next) => {
+  console.log('Inkommande ' + req.method + '-förfrågan');
+  next();
+});
+
 // Funktion som läser läser in fil
 const getPostsData = async () => {
   try {
-    data = await fs.readFile('data/example-data.json', 'utf-8');
+    data = await fs.readFile(filePath, 'utf-8');
     return data;
   } catch (error) {
     throw new Error('Filen kunde inte hittas!');
@@ -28,15 +35,26 @@ const getPostsData = async () => {
 const writePostData = async (data) => {
   try {
     console.log(typeof data);
-    await fs.writeFile('data/example-data.json', JSON.stringify(data, null, 2));
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
   } catch (error) {
     throw new Error('Något gick fel när data skulle skrivas till filen.');
   }
 };
 
+// Funktion som lägger till ett nytt inlägg
+// const appendPostData = async (data) => {
+//   try {
+//     await fs.appendFile(filePath, JSON.stringify(data, null, 2));
+//   } catch (error) {
+//     throw new Error('Det gick inte skriva till filen');
+//   }
+// };
+
 app.get('/', (req, res) => {
   res.render('home.ejs');
 });
+
+///////// Hämta inlägg - Gästbokens startsida /////////
 
 app.get('/posts', async (req, res) => {
   try {
@@ -45,70 +63,61 @@ app.get('/posts', async (req, res) => {
     posts = JSON.parse(posts);
     // Sortera, flest gilla-markeringar överst
     const sortedPosts = posts.sort((a, b) => b.likes - a.likes);
-
+    // Skriv ut alla inlägg
     res.render('posts.ejs', { posts: sortedPosts });
   } catch (error) {
     res.send(error.message);
   }
 });
 
-app.post('/posts/:id', async (req, res) => {
-  const { id } = req.params;
+///////// Nytt inlägg /////////
+app.post('/posts/', async (req, res) => {
+  const { author, email, comment } = req.body;
+  const data = { author, email, comment, likes: 0 };
+  //Generera ett id utifrån tid samt ett slumpmässigt tal
+  let id = new Date().getTime();
+  id += Math.floor(Math.random() * 10 + 1);
+  data.id = id;
+
   try {
-    let posts = await getPostsData();
-    posts = JSON.parse(posts);
-    for (let i = 0; i < posts.length; i++) {
-      if (posts[i].id === Number(id)) posts[i].likes += 1;
-    }
-    await writePostData(posts);
+    await appendPostData(data);
     res.redirect('/posts');
   } catch (error) {
     res.send(error.message);
   }
 });
 
-app.get('/posts/new', (req, res) => {
-  res.render('posts_new.ejs');
-});
-
-app.get('/posts/:postId', async (req, res) => {
-  const { postId } = req.params;
+///////// Gillat inlägg - Gäsboktens startsida /////////
+app.post('/posts/:id', async (req, res) => {
+  // ID:t på det inlägg som gillats
+  const { id } = req.params;
   try {
+    // Läser in alla inlägg
     let posts = await getPostsData();
     posts = JSON.parse(posts);
-    res.send(posts[0].replies);
+
+    // Öka egenskapen för gillamarkeringar med 1 på aktuellt inlägg
+    for (let i = 0; i < posts.length; i++) {
+      if (posts[i].id === Number(id)) posts[i].likes += 1;
+    }
+    // Skriv hela filen igen
+    await writePostData(posts);
+    // Skicka användaren till gästbokens startsida
+    res.redirect('/posts');
   } catch (error) {
-    res.send(error);
+    res.send(error.message);
   }
 });
 
-// app.get('/posts/:id', async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     let posts = await getPostsData('data/example-data.json');
-//     posts = JSON.parse(posts);
-//     const post = posts.find((post) => post.id === Number(id));
-//     res.json(post);
-//   } catch (error) {
-//     res.send(error.message);
-//   }
-// });
+///////// Nytt inlägg /////////
 
-// app.post('/posts', async (req, res) => {
-//   const { name, email, comment } = req.body;
-//   console.log(name, email, comment);
-// });
-
-app.post('/posts/', (req, res) => {
-  const { author, email, comment } = req.body;
-  console.log(author);
-  console.log(email);
-  console.log(comment);
-  res.redirect('/posts');
+app.get('/posts/new', (req, res) => {
+  res.render('new_post.ejs');
 });
 
+///////// Om sidan inte hittas /////////
 app.use((req, res) => {
-  res.status(404).send('Sidan kunde inte hittas');
+  res.status(404).render('error.ejs');
 });
 
 app.listen(port, () => {

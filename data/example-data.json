@@ -4,7 +4,7 @@
     "author": "Sven Svensson",
     "email": "sven@sven.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 0
+    "likes": 3
   },
   {
     "id": 2,
@@ -18,7 +18,7 @@
     "author": "Greta Gunnarsson",
     "email": "greta@great.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 0
+    "likes": 2
   },
   {
     "id": 4,

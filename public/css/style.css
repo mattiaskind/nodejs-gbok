@@ -61,6 +61,10 @@ label {
   display: block;
 }
 
+.error {
+  color: rgb(211, 106, 106);
+}
+
 .guestbook-nav {
   max-width: 800px;
   padding: 2rem 0.5rem;
