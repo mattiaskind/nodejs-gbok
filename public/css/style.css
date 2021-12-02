@@ -187,6 +187,20 @@ textarea {
   content: '👍';
 }
 
+.error-label::before {
+  content: '❌ ';
+}
+
+.error-label {
+  text-transform: none;
+  color: red;
+}
+
+.submit-msg {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
 #like-form {
   display: inline;
 }
@@ -207,4 +221,8 @@ textarea {
 
 #like-btn:hover {
   background-color: rgb(53, 79, 156);
+}
+
+.hidden {
+  display: none;
 }

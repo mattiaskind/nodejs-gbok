@@ -1,15 +1,18 @@
 <div class="form">
   <form action="/posts/" method="post">
+    <div class="submit-msg hidden">Tack för din kommentar!</div>
     <div>      
-      <label for="author">Namn</label>
+      <label for="author">Namn <span class="error-label hidden">Du måste fylla i ett namn</span></label>
       <input type="text" name="author" id="author" class="required">
     </div>
     <div>      
-      <label for="author">E-post</label>
+      <label for="email">E-post <span class="error-label hidden">Du måste fylla i e-postadressen korrekt</span></label>
       <input type="text" name="email" id="email" class="required">
     </div>
     <div>
-      <label for="comment">Lämna en kommentar</label>
+      <label for="comment">Lämna en kommentar 
+        <span class="error-label hidden">Fältet innehåller ogiltiga tecken</span>
+      </label>
       <textarea name="comment" id="comment" cols="30" rows="10" class="required"></textarea>
     </div>
     <div class="btn-container"><input type="submit" value="Skicka"></div>    
