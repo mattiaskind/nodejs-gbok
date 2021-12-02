@@ -62,7 +62,13 @@ label {
 }
 
 .error {
-  color: rgb(211, 106, 106);
+  color: rgb(250, 45, 45);
+}
+
+.error-list {
+  padding-left: 2rem;
+  margin-top: 1rem;
+  list-style-type: disc;
 }
 
 .guestbook-nav {
@@ -128,7 +134,7 @@ label {
 
 input,
 textarea {
-  border: 1px solid rgba(90, 90, 90, 0.5);
+  border: 1px solid rgb(197, 197, 197);
 }
 
 .btn-container {

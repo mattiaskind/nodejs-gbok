@@ -1,10 +1,15 @@
 
   <%- include('partials/header.ejs') %>
   
-  <main>
-    
-    <h2 class="error">Sidan kunde inte hittas!</h2>
-  
+  <main>    
+    <h2 class="error">Följande fel inträffade</h2>
+    <% if(errors) { %> 
+      <ul class="error-list">
+        <% for (error of errors) { %> 
+          <li><%= error %></li>
+        <% } %> 
+      </ul>     
+    <% } %>   
   </main>
   
   <%- include('partials/footer.ejs') %>

@@ -1,5 +1,4 @@
 window.addEventListener('load', () => {
-  //const formBtn = document.querySelector('input[type="submit"');
   const form = document.querySelector('form');
   const inputFields = document.querySelectorAll('input:not([type="reset"]):not([type="submit"])');
   const textArea = document.querySelector('textarea');
@@ -7,8 +6,10 @@ window.addEventListener('load', () => {
   const requiredFields = document.querySelectorAll('.required');
   const submitMsg = document.querySelector('.submit-msg');
 
+  // Global array för ev. fel i formuläret
   window.formFieldErrors = [];
 
+  // Kontrollera att alla formulärfält fylls i
   btnSend.disabled = true;
   for (let i = 0; i < requiredFields.length; i++) {
     requiredFields[i].addEventListener('input', function () {
@@ -19,6 +20,7 @@ window.addEventListener('load', () => {
     });
   }
 
+  // Gör kontroller när formuläret skickas
   form.addEventListener(
     'submit',
     (e) => {
@@ -49,6 +51,7 @@ window.addEventListener('load', () => {
     true
   );
 
+  // Funktioner för validering
   function validate(element, callback) {
     if (!callback(element.value)) formFieldErrors.push(element.id);
   }
