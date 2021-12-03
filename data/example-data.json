@@ -3,7 +3,14 @@
     "author": "Sven Svensson",
     "email": "sven@svensson.com",
     "comment": "Hej hej!",
-    "likes": 4,
+    "likes": 2,
     "id": 44524
+  },
+  {
+    "author": "qwe",
+    "email": "mail@mail.com",
+    "comment": "&lt;h2&gt;HEjsan",
+    "likes": 3,
+    "id": 21908
   }
 ]

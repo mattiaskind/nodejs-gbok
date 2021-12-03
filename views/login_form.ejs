@@ -1,0 +1,22 @@
+<%- include('partials/header.ejs') %> 
+<main>
+  <div class="form">
+    <form action="/login/" method="post">
+      <% if(error) { %> 
+        <div class="login-failed">
+          Inloggningen misslyckades
+        </div>
+      <% } %>       
+      <div>      
+        <label for="username">Användarnamn</label>
+        <input type="text" name="username" id="username">
+      </div>
+      <div>      
+        <label for="password">Lösenord</label>
+        <input type="text" name="password" id="password">
+      </div>
+      <div class="btn-container"><input type="submit" value="Logga in"></div>    
+    </form>
+  </div>
+</main>
+<%- include('partials/footer.ejs') %> 

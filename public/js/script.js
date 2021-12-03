@@ -37,15 +37,13 @@ window.addEventListener('load', () => {
         if (element.id === 'email') validate(element, isValidEmail);
       });
 
-      validate(textArea, isValidTextArea);
+      //validate(textArea, isValidTextArea);
 
       if (formFieldErrors.length > 0) {
         e.preventDefault();
         formFieldErrors.forEach((id) => {
           document.querySelector(`label[for="${id}"]`).children[0].classList.remove('hidden');
         });
-      } else {
-        submitMsg.classList.remove('hidden');
       }
     },
     true
@@ -56,10 +54,10 @@ window.addEventListener('load', () => {
     if (!callback(element.value)) formFieldErrors.push(element.id);
   }
 
-  function isValidTextArea(input) {
-    const regex = /^[\w\d\s]+$/i;
-    return regex.test(input);
-  }
+  // function isValidTextArea(input) {
+  //   const regex = /^[\w\d\s]+$/i;
+  //   return regex.test(input);
+  // }
 
   function isValidInput(input) {
     const regex = /^[a-ö, -]{2,}$/i;

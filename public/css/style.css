@@ -30,6 +30,16 @@ main {
   padding: 4rem 5rem 1rem 5rem;
 }
 
+a {
+  text-decoration: none;
+  color: royalblue;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: royalblue;
+}
+
 nav a {
   color: white;
   text-decoration: none;
@@ -139,6 +149,19 @@ textarea {
 
 .btn-container {
   text-align: right;
+  margin-top: 0.5rem;
+}
+
+.admin-link {
+  background-color: rgb(245, 245, 245);
+  max-width: 800px;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  padding: 1rem;
+  border: 1px solid rgb(215, 215, 215);
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  text-align: right;
 }
 
 .post {
@@ -200,6 +223,16 @@ textarea {
 .error-label {
   text-transform: none;
   color: red;
+}
+
+.login-failed {
+  padding: 1rem;
+  color: red;
+}
+
+.login-info {
+  color: seagreen;
+  font-weight: 700;
 }
 
 .submit-msg {

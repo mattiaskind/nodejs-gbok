@@ -1,12 +1,20 @@
 <%- include('partials/header.ejs') %> 
 <main>
   <%- include('new_post.ejs') %>  
-<ul>
+
+  <div class="admin-link">    
+    <% if(loggedIn) { %>
+      <span class="login-info">Inloggad</span>
+    <% } else { %> 
+      <a href="/login">Administrera inlägg</a>
+    <% } %>     
+  </div>
+<ul>  
   <% for (post of posts) { %>
     <div class="post">
     <div class="post-header">
       <li class="author"><%= post.author %></li>    
-      <li class="comment"><%= post.comment %></li>    
+      <li class="comment"><%- post.comment %></li>    
     </div>
     <li class="likes">
       <form action="/posts/<%= post.id %>" method="post" id="like-form">
