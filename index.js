@@ -1,11 +1,16 @@
 const fs = require('fs').promises;
 const express = require('express');
 const path = require('path');
+
+// express-session används för att hålla reda på admin-inloggning
+const session = require('express-session');
+// express-validator används för att validera inkommande formulärdata på serversidan
 const { body, validationResult } = require('express-validator');
 
 const app = express();
 const port = 3000;
 
+// Sökvägen till json-datan, dvs. gästbokens inlägg
 const filePath = 'data/example-data.json';
 
 // Ställ in varifrån statiska filer hämtas
@@ -16,6 +21,15 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 // För formulärdatan
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware för express-session
+app.use(
+  session({
+    secret: 'hemligt',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Visa inkommande förfrågningar i konsolen
 app.use((req, res, next) => {
@@ -43,8 +57,6 @@ const writePostData = async (data) => {
   }
 };
 
-let LOGGED_IN = false;
-
 ///////// Index /////////
 app.get('/', (req, res) => {
   res.render('home.ejs');
@@ -52,13 +64,15 @@ app.get('/', (req, res) => {
 
 ///////// Hämta inlägg - Gästbokens startsida /////////
 app.get('/posts', async (req, res) => {
+  // Visa sessionen i konsolen
+  console.log(req.session);
   try {
     // Hämta datan
     const posts = JSON.parse(await getPostsData());
     // Sortera, flest gilla-markeringar överst
     const sortedPosts = posts.sort((a, b) => b.likes - a.likes);
     // Skriv ut alla inlägg
-    res.render('posts.ejs', { posts: sortedPosts, loggedIn: LOGGED_IN });
+    res.render('posts.ejs', { posts: sortedPosts, loggedIn: req.session.loggedIn });
   } catch (error) {
     res.send(error.message);
   }
@@ -130,13 +144,29 @@ app.post('/posts/:id', async (req, res) => {
   }
 });
 
+app.delete('posts/:id', async (req, res) => {
+  // req.params
+  // filter
+  console.log('delete');
+  res.send('delete');
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) throw err;
+
+    console.log('Utloggad');
+  });
+  res.redirect('/posts');
+});
+
 app.get('/login', (req, res) => {
   res.render('login_form.ejs', { error: false });
 });
 
 app.post('/login', (req, res) => {
   if (req.body.username === 'admin' && req.body.password === 'hemligt') {
-    LOGGED_IN = true;
+    req.session.loggedIn = true;
     res.redirect('/posts');
   } else {
     res.render('login_form', { error: true });

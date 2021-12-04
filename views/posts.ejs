@@ -2,32 +2,39 @@
 <main>
   <%- include('new_post.ejs') %>  
 
-  <div class="admin-link">    
-    <% if(loggedIn) { %>
-      <span class="login-info">Inloggad</span>
-    <% } else { %> 
-      <a href="/login">Administrera inlägg</a>
-    <% } %>     
+  <div class="admin-link">        
+      <% if(loggedIn) { %>       
+        <span class="login-info">Inloggad</span>
+        <a href="/logout">Logga ut</a>
+      <% } else { %> 
+        <a href="/login">Administrera inlägg </a>          
+      <% } %> 
   </div>
 <ul>  
   <% for (post of posts) { %>
     <div class="post">
-    <div class="post-header">
-      <li class="author"><%= post.author %></li>    
-      <li class="comment"><%- post.comment %></li>    
+      
+      <div class="post-header">
+        <li class="author"><%= post.author %></li>    
+        <li class="comment"><%- post.comment %></li>    
+      </div>
+      
+      <li class="likes">
+        <% if(loggedIn) { %>
+          <form action="/delete/<%= post.id %>" method="post">
+            <input type="submit" value="Ta bort inlägg" id="delete-btn">
+          </form>
+        <% } else { %> 
+          <form action="/posts/<%= post.id %>" method="post">
+            <input type="submit" value="Gilla" id="like-btn">
+          </form>
+        <% } %>    
+        <% if(post.likes > 0) { %> 
+          <span class="likes-badge"><%=post.likes %></span>
+        <% } %>        
+      </li>    
     </div>
-    <li class="likes">
-      <form action="/posts/<%= post.id %>" method="post" id="like-form">
-        <input type="submit" value="Gilla" id="like-btn">
-      </form>
-    <% if(post.likes > 0) { %> 
-      <span class="likes-badge"><%=post.likes %></span>
-    <% } %>
-    </li>
-    </div>
-    <div class="replies">      
-    </div>
-  <% } %> 
+  <% } %>   
 </ul>
 </main>
 <script src="/js/script.js"></script>

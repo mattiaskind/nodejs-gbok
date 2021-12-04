@@ -98,7 +98,7 @@ label {
 }
 
 /* form {
-  width: fit-content;
+  padding: 1rem;
 } */
 
 .form label {
@@ -240,8 +240,26 @@ textarea {
   margin-bottom: 0.5rem;
 }
 
-#like-form {
+form {
   display: inline;
+}
+
+input[type='submit'] {
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  font-size: 1.4rem;
+  background-color: rgb(71, 101, 192);
+  border: 0;
+  cursor: pointer;
+}
+
+input[type='submit']:focus {
+  background-color: rgb(60, 87, 168);
+}
+
+input[type='submit']:hover {
+  background-color: rgb(53, 79, 156);
 }
 
 #like-btn {
@@ -260,6 +278,25 @@ textarea {
 
 #like-btn:hover {
   background-color: rgb(53, 79, 156);
+}
+
+#delete-btn {
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  font-size: 1.4rem;
+  background-color: rgb(192, 71, 87);
+  border: 0;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+#delete-btn:focus {
+  background-color: rgb(175, 63, 78);
+}
+
+#delete-btn:hover {
+  background-color: rgb(163, 59, 73);
 }
 
 .hidden {

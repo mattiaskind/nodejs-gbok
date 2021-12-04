@@ -4,7 +4,6 @@ window.addEventListener('load', () => {
   const textArea = document.querySelector('textarea');
   const btnSend = document.querySelector('input[type="submit"]');
   const requiredFields = document.querySelectorAll('.required');
-  const submitMsg = document.querySelector('.submit-msg');
 
   // Global array för ev. fel i formuläret
   window.formFieldErrors = [];
@@ -30,14 +29,11 @@ window.addEventListener('load', () => {
         });
       }
       formFieldErrors = [];
-      submitMsg.classList.add('hidden');
 
       inputFields.forEach((element) => {
         if (element.id === 'author') validate(element, isValidInput);
         if (element.id === 'email') validate(element, isValidEmail);
       });
-
-      //validate(textArea, isValidTextArea);
 
       if (formFieldErrors.length > 0) {
         e.preventDefault();
@@ -53,11 +49,6 @@ window.addEventListener('load', () => {
   function validate(element, callback) {
     if (!callback(element.value)) formFieldErrors.push(element.id);
   }
-
-  // function isValidTextArea(input) {
-  //   const regex = /^[\w\d\s]+$/i;
-  //   return regex.test(input);
-  // }
 
   function isValidInput(input) {
     const regex = /^[a-ö, -]{2,}$/i;
