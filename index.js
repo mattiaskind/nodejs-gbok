@@ -27,7 +27,7 @@ app.use(
   session({
     secret: 'hemligt',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 
@@ -63,8 +63,8 @@ app.get('/', (req, res) => {
 
 ///////// Hämta inlägg - Gästbokens startsida /////////
 app.get('/posts', async (req, res) => {
-  // Visa sessionen i konsolen
-  console.dir(req.session);
+  // Visa info om sessionen i konsolen
+  //console.dir(req.session);
 
   try {
     // Hämta datan
@@ -154,6 +154,7 @@ app.post('/posts/:id', async (req, res) => {
 });
 
 app.delete('posts/:id', async (req, res) => {
+  console.log(req.params);
   // req.params
   // filter
   console.log('delete');

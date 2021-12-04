@@ -1,7 +1,9 @@
 <%- include('partials/header.ejs') %> 
 <main>
-  <%- include('new_post.ejs') %>  
 
+  <% if (!loggedIn) { %> 
+    <%- include('new_post.ejs') %>  
+  <% } %> 
   <div class="admin-link">        
       <% if(loggedIn) { %>       
         <span class="login-info">Inloggad</span>
@@ -36,6 +38,12 @@
     </div>
   <% } %>   
 </ul>
+<div class="cookie-info">
+  <div>Gästboken lagrar en sessions-cookie för att hålla reda på inloggning och gillade inlägg.</div>  
+</div>
 </main>
+
+
+
 <script src="/js/script.js"></script>
 <%- include('partials/footer.ejs') %> 
