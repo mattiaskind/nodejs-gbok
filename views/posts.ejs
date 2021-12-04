@@ -22,7 +22,7 @@
       </div>
       
       <li class="likes">
-        <% if(loggedIn) { %>
+        <% if(loggedIn) { %>          
           <form action="/delete/<%= post.id %>" method="post">
             <input type="submit" value="Ta bort inlägg" id="delete-btn">
           </form>
@@ -42,8 +42,6 @@
   <div>Gästboken lagrar en sessions-cookie för att hålla reda på inloggning och gillade inlägg.</div>  
 </div>
 </main>
-
-
 
 <script src="/js/script.js"></script>
 <%- include('partials/footer.ejs') %> 

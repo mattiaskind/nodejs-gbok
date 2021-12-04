@@ -1,8 +1,6 @@
 const fs = require('fs').promises;
 const express = require('express');
 const path = require('path');
-
-// express-session används för att hålla reda på admin-inloggning
 const session = require('express-session');
 // express-validator används för att validera inkommande formulärdata på serversidan
 const { body, validationResult } = require('express-validator');
@@ -23,6 +21,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware för express-session
+// express-session används för att hålla reda på admin-inloggning och används för att
+// bara låta användaren gilla ett inlägg en gång. Sessionen försvinner så fort
+// sidan stängs och öppnas igen så det fungerar såklart inte i en poduktionsmiljö men
+// här är det bara för att ge en uppfattning om hur det skulle kunna fungera
 app.use(
   session({
     secret: 'hemligt',
@@ -126,8 +128,8 @@ app.post('/posts/:id', async (req, res) => {
   // ID:t på det inlägg som gillats
   const { id } = req.params;
 
-  // Sessionen används för att hålla reda på vilka inlägg användaren har gillat
-  // Kontrollera om användaren har gillat samma inlägg tidigare, det går bara att gilla en gång
+  // Använd sessions-objektet för att kontrollera om besökaren har gillat samma inlägg tidigare
+  // En besökar ska bara kunna gilla varje inlägg en gång
   if (Object.hasOwn(req.session, 'likes')) {
     if (req.session.likes.includes(id)) return res.redirect('/posts');
     req.session.likes.push(id);
@@ -153,12 +155,18 @@ app.post('/posts/:id', async (req, res) => {
   }
 });
 
-app.delete('posts/:id', async (req, res) => {
-  console.log(req.params);
-  // req.params
-  // filter
-  console.log('delete');
-  res.send('delete');
+app.post('/delete/:id', async (req, res) => {
+  const postId = Number(req.params.id);
+
+  try {
+    let posts = await getPostsData();
+    posts = JSON.parse(posts);
+    const newPostsArr = Object.values(posts).filter((post) => post.id !== postId);
+    await writePostData(newPostsArr);
+    res.redirect('/posts');
+  } catch (error) {
+    res.send(error.message);
+  }
 });
 
 app.get('/logout', (req, res) => {
