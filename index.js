@@ -50,7 +50,6 @@ const getPostsData = async () => {
 // Funktion som skriver till filen
 const writePostData = async (data) => {
   try {
-    console.log(typeof data);
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
   } catch (error) {
     throw new Error('Något gick fel när data skulle skrivas till filen.');
@@ -65,7 +64,8 @@ app.get('/', (req, res) => {
 ///////// Hämta inlägg - Gästbokens startsida /////////
 app.get('/posts', async (req, res) => {
   // Visa sessionen i konsolen
-  console.log(req.session);
+  console.dir(req.session);
+
   try {
     // Hämta datan
     const posts = JSON.parse(await getPostsData());
@@ -102,7 +102,6 @@ app.post(
       '>': '&gt;',
     };
     comment = comment.replace(/<|>/g, (ch) => replaceChars[ch]);
-    console.log(comment);
 
     const newPost = { author, email, comment, likes: 0 };
     //Generera någon slags unikt nummer utifrån tid samt ett slumpmässigt tal
@@ -126,6 +125,16 @@ app.post(
 app.post('/posts/:id', async (req, res) => {
   // ID:t på det inlägg som gillats
   const { id } = req.params;
+
+  // Sessionen används för att hålla reda på vilka inlägg användaren har gillat
+  // Kontrollera om användaren har gillat samma inlägg tidigare, det går bara att gilla en gång
+  if (Object.hasOwn(req.session, 'likes')) {
+    if (req.session.likes.includes(id)) return res.redirect('/posts');
+    req.session.likes.push(id);
+  } else {
+    req.session.likes = [id];
+  }
+
   try {
     // Läser in alla inlägg
     let posts = await getPostsData();
