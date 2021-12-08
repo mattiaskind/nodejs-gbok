@@ -107,6 +107,10 @@ app.post(
     comment = comment.replace(/<|>/g, (ch) => replaceChars[ch]);
 
     const newPost = { author, email, comment, likes: 0 };
+
+    // Datum
+    newPost.dateTime = new Date().toLocaleDateString('sv-SE');
+
     //Generera någon slags unikt nummer utifrån tid samt ett slumpmässigt tal
     let id = new Date().getTime();
     id += Math.floor(Math.random() * 10 + 1);

@@ -17,7 +17,13 @@
     <div class="post">
       
       <div class="post-header">
-        <li class="author"><%= post.author %></li>    
+        <li class="author">
+          <%= post.author %> 
+          <span class="date-time"><%= post.dateTime %> </span>
+          <% if(loggedIn) { %>
+            <span class="email"><%= post.email %></span>
+          <% } %>           
+        </li>        
         <li class="comment"><%- post.comment %></li>    
       </div>
       

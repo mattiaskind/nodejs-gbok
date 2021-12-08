@@ -4,13 +4,15 @@
     "author": "Arne Andersson",
     "email": "arne@a.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 2
+    "likes": 2,
+    "dateTime": "2021-12-06"
   },
   {
     "id": 3,
     "author": "Greta Gunnarsson",
     "email": "greta@great.com",
     "comment": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, magnam.",
-    "likes": 1
+    "likes": 1,
+    "dateTime": "2021-12-08"
   }
 ]

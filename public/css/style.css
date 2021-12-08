@@ -195,6 +195,18 @@ textarea {
   margin-bottom: 0.2rem;
 }
 
+.email {
+  font-weight: 400;
+  color: rgb(109, 109, 109);
+  margin-bottom: 0.2rem;
+  color: rgb(78, 126, 179);
+}
+
+.date-time {
+  font-size: 1.2rem;
+  color: rgb(78, 126, 179);
+}
+
 .comment {
   margin-block: 0.5rem;
 }
