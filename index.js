@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 
 // Sökvägen till json-datan, dvs. gästbokens inlägg
-const filePath = 'data/example-data.json';
+const filePath = 'data/data.json';
 
 // Ställ in varifrån statiska filer hämtas
 app.use(express.static(path.join(__dirname, 'public')));
@@ -71,7 +71,7 @@ app.get('/posts', async (req, res) => {
   try {
     // Hämta datan
     const posts = JSON.parse(await getPostsData());
-    // Sortera, flest gilla-markeringar överst
+    // Sortera. Flest gilla-markeringar överst
     const sortedPosts = posts.sort((a, b) => b.likes - a.likes);
     // Skriv ut alla inlägg
     res.render('posts.ejs', { posts: sortedPosts, loggedIn: req.session.loggedIn });
@@ -83,7 +83,7 @@ app.get('/posts', async (req, res) => {
 ///////// Nytt inlägg /////////
 app.post(
   '/posts/',
-  // Validering på serversidan, validering görs även på klientsidan
+  // Enkel validering på serversidan. Validering görs även på klientsidan
   body('email').isEmail().withMessage('Ogiltig e-post'),
   body('author').isLength({ min: 2 }).withMessage('Du måste ange ett namn'),
   async (req, res) => {
@@ -99,6 +99,7 @@ app.post(
 
     let { author, email, comment } = req.body;
 
+    // Använd escapesekvenser för att ersätta eventuella krokodilkäftar i meddelandet
     const replaceChars = {
       '<': '&lt;',
       '>': '&gt;',
@@ -155,8 +156,10 @@ app.post('/posts/:id', async (req, res) => {
   }
 });
 
+// Ta bort ett inlägg
 app.post('/delete/:id', async (req, res) => {
   const postId = Number(req.params.id);
+  if (!req.session.loggedIn) return res.status(403).send('Du är inte inloggad');
 
   try {
     let posts = await getPostsData();
@@ -178,10 +181,12 @@ app.get('/logout', (req, res) => {
   res.redirect('/posts');
 });
 
+// Visa login-formulär
 app.get('/login', (req, res) => {
   res.render('login_form.ejs', { error: false });
 });
 
+// Hantera inloggning från formuläret
 app.post('/login', (req, res) => {
   if (req.body.username === 'admin' && req.body.password === 'hemligt') {
     req.session.loggedIn = true;
