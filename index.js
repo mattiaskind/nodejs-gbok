@@ -22,9 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Middleware för express-session
 // express-session används för att hålla reda på admin-inloggning och används för att
-// bara låta användaren gilla ett inlägg en gång. Sessionen försvinner så fort
-// sidan stängs och öppnas igen så det fungerar såklart inte i en poduktionsmiljö men
-// här är det bara för att ge en uppfattning om hur det skulle kunna fungera
+// bara låta användaren gilla ett inlägg en gång.
 app.use(
   session({
     secret: 'hemligt',
