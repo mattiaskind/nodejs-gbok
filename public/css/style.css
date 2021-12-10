@@ -115,6 +115,13 @@ label {
   border-radius: 0.5rem;
 }
 
+.form input[type='password'] {
+  width: 100%;
+  font-size: inherit;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
 .form input[type='submit'] {
   color: white;
   padding: 0.6rem 1.2rem;
