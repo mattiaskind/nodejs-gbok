@@ -33,11 +33,12 @@ app.use(
   })
 );
 
+// Debug
 // Visa inkommande förfrågningar i konsolen
-app.use((req, res, next) => {
-  console.log('Inkommande ' + req.method + '-förfrågan');
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('Inkommande ' + req.method + '-förfrågan');
+//   next();
+// });
 
 // Funktion som läser läser in fil
 const getPostsData = async () => {
@@ -60,7 +61,7 @@ const writePostData = async (data) => {
 
 ///////// Index /////////
 app.get('/', (req, res) => {
-  res.render('home.ejs');
+  res.redirect('/posts');
 });
 
 ///////// Hämta inlägg - Gästbokens startsida /////////
@@ -91,7 +92,7 @@ app.post(
     const errors = validationResult(req);
     // Om det finns fel avbryt och rendera dessa
     if (!errors.isEmpty()) {
-      // Lägg felmeddelanden i en array, skicka vidare till mallen som renderar fel och avsluta
+      // Lägg felmeddelanden i ett fält, skicka vidare till mallen som renderar fel och avsluta
       // exekveringen
       const errorsArr = Object.values(errors.mapped()).map((error) => error.msg);
       return res.render('error', { errors: errorsArr });
@@ -179,8 +180,6 @@ app.post('/delete/:id', async (req, res) => {
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) throw err;
-
-    console.log('Utloggad');
   });
   res.redirect('/posts');
 });
